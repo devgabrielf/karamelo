@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  hash  String
+
+  name       String
+  avatar     String?
+  picture    String?
+  city       String
+  uf         String
+  homeImages HomeImage[]
+  role       String      @default("USER")
+  status     String      @default("ACTIVE")
+
+  registeredAnimals Animal[]
+  inqueries         Inquery[]
+
+  sentReports     UserReport[] @relation("reporter")
+  receivedReports UserReport[] @relation("reported")
+
+  @@map("users")
+}
+
+model HomeImage {
+  id Int @id @default(autoincrement())
+
+  fileName String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("homeImages")
+}
+
+model Animal {
+  id        String   @id
+  createdAt DateTime @default(now())
+
+  name        String
+  pictures    AnimalImage[]
+  description String
+  species     String
+  sex         String
+  months      Int?
+  city        String
+  uf          String
+  status      String        @default("PENDING")
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  inqueries Inquery[]
+
+  @@map("adnimals")
+}
+
+model AnimalImage {
+  id Int @id @default(autoincrement())
+
+  src String
+
+  animalId String
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  @@map("animalImages")
+}
+
+model Inquery {
+  id        String   @id
+  createdAt DateTime @default(now())
+
+  message String
+  status  String @default("PENDING")
+
+  animalId String
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  @@map("inqueries")
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  content  String
+  authorId String
+
+  inqueryId String
+  inquery   Inquery @relation(fields: [inqueryId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model UserReport {
+  id        String   @id
+  createdAt DateTime @default(now())
+
+  reportType Int
+  status     String @default("PENDING")
+
+  authorId String
+  author   User   @relation("reporter", fields: [authorId], references: [id], onDelete: Cascade)
+
+  reportedUserId String
+  reportedUser   User   @relation("reported", fields: [reportedUserId], references: [id], onDelete: Cascade)
+}

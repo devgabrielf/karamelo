@@ -24,5 +24,6 @@ export const load = (async ({ fetch, params, parent, url }) => {
 		animal,
 		user,
 		openInquery: inquery === "true",
+		title: animal.name,
 	};
 }) satisfies PageLoad;

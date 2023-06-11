@@ -1,11 +1,17 @@
 <script lang="ts">
+	import { InqueryMessages } from "$components";
 	import { AnimalStatus, InqueryStatus, Sex } from "$enums";
-	import type { AnimalSimple } from "$types";
+	import type { AnimalSimple, Inquery, User } from "$types";
 	import { getSexIcon } from "$utils";
+	import { MessageCircle } from "lucide-svelte";
 
 	export let animal: AnimalSimple;
 	export let href: string | null = `/animais/${animal.id}`;
 	export let status: AnimalStatus | InqueryStatus | undefined = undefined;
+	export let inqueryId: string | undefined = undefined;
+	export let user: User | undefined = undefined;
+
+	let showMessagesModal = false;
 
 	const getStatusBorder = () => {
 		switch (status) {
@@ -44,11 +50,31 @@
 				class="mr-2 h-5 w-5"
 			/>
 		</div>
-		<p class="... overflow-hidden text-ellipsis text-sm font-bold text-zinc-400">
-			{animal.city}, {animal.uf}
-		</p>
+		<div class="flex justify-between gap-1">
+			<p class="... overflow-hidden text-ellipsis text-sm font-bold text-zinc-400">
+				{animal.city}, {animal.uf}
+			</p>
+			{#if inqueryId && status === InqueryStatus.APPROVED}
+				<button
+					on:click={() => (showMessagesModal = true)}
+					aria-label="Mensagens"
+					title="Mensagens"
+					class="mr-1 rounded-full text-zinc-600 z-10"
+				>
+					<MessageCircle />
+				</button>
+			{/if}
+		</div>
 	</div>
 </div>
+{#if inqueryId && user && status === InqueryStatus.APPROVED}
+	<InqueryMessages
+		on:close={() => (showMessagesModal = false)}
+		bind:showMessages={showMessagesModal}
+		inqueryId={inqueryId}
+		{user}
+	/>
+{/if}
 
 <style lang="postcss">
 	.link::after {

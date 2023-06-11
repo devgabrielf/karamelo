@@ -120,11 +120,11 @@
 		formData.append("file", file);
 
 		const response = await fetch(`${API_BASE_URL}/images/`, {
+			method: "POST",
 			headers: {
 				"Access-Control-Allow-Origin": "origin-list",
 				Authorization: `Bearer ${user.accessToken}`,
 			},
-			method: "POST",
 			body: formData,
 		});
 
@@ -132,7 +132,7 @@
 			const picture = await response.json();
 			pictures = [...pictures, picture.src];
 		} else {
-			toast(`Ocorreu um erro ao enviar a foto.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao enviar a foto.", ToastType.ERROR);
 		}
 
 		isUploadingImage = false;

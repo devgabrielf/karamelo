@@ -6,7 +6,7 @@ import type { PageLoad } from "./$types";
 export const load = (async ({ fetch, parent }) => {
 	const { user } = await parent();
 
-	const response = await fetch(`${API_BASE_URL}/inqueries/mine`, {
+	const response = await fetch(`${API_BASE_URL}/inqueries/mine/`, {
 		headers: {
 			Authorization: `Bearer ${user?.accessToken}`,
 		},
@@ -21,5 +21,6 @@ export const load = (async ({ fetch, parent }) => {
 	return {
 		inqueries,
 		user,
+		title: "Solicitações"
 	};
 }) satisfies PageLoad;

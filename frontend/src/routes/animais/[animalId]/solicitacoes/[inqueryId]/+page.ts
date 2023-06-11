@@ -24,6 +24,10 @@ export const load = (async ({ depends, fetch, params, parent }) => {
 
 	const inquery: Inquery = await response.json();
 
+	if (inquery.animal.author.id !== user.id) {
+		throw redirect(303, ".");
+	}
+
 	return {
 		inquery,
 		user,

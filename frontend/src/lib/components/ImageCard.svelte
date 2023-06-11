@@ -32,6 +32,16 @@
 	});
 </script>
 
+<svelte:head>
+   {#if isOpen}
+      <style>
+         body {
+            overflow: hidden;
+         }
+      </style>
+   {/if}
+</svelte:head>	
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	on:click|self={() => (isOpen = false)}

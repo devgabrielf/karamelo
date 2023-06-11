@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { RegisterAnimalDto } from './dtos';
+import { MarkAsAdoptedDto, RegisterAnimalDto } from './dtos';
 import { AnimalStatus, ErrorMessage, Species } from './enums';
 import type { GetUserType } from '../user/types';
 import { UserRole } from '../user/enums';
@@ -234,7 +234,10 @@ export class AnimalService {
     };
   }
 
-  async approveAnimal(animalId: string) {
+  async evaluteAnimal(
+    animalId: string,
+    status: AnimalStatus.APPROVED | AnimalStatus.REJECTED,
+  ) {
     const animal = await this.prisma.animal.findUnique({
       where: {
         id: animalId,
@@ -254,40 +257,28 @@ export class AnimalService {
         id: animalId,
       },
       data: {
-        status: AnimalStatus.APPROVED,
+        status,
       },
     });
   }
 
-  async rejectAnimal(animalId: string) {
+  async markAsAdopted(
+    dto: MarkAsAdoptedDto,
+    animalId: string,
+    userId: GetUserType['id'],
+  ) {
     const animal = await this.prisma.animal.findUnique({
       where: {
         id: animalId,
       },
-    });
-
-    if (!animal) {
-      throw new NotFoundException(ErrorMessage.ANIMAL_NOT_FOUND);
-    }
-
-    if (animal.status !== AnimalStatus.PENDING) {
-      throw new BadRequestException(ErrorMessage.ANIMAL_NOT_PENDING);
-    }
-
-    await this.prisma.animal.update({
-      where: {
-        id: animalId,
-      },
-      data: {
-        status: AnimalStatus.REJECTED,
-      },
-    });
-  }
-
-  async markAsAdopted(animalId: string, userId: GetUserType['id']) {
-    const animal = await this.prisma.animal.findUnique({
-      where: {
-        id: animalId,
+      select: {
+        authorId: true,
+        status: true,
+        inqueries: {
+          select: {
+            authorId: true,
+          },
+        },
       },
     });
 
@@ -296,7 +287,7 @@ export class AnimalService {
     }
 
     if (animal.authorId !== userId) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     if (animal.status === AnimalStatus.ADOPTED) {
@@ -307,6 +298,14 @@ export class AnimalService {
       throw new BadRequestException(ErrorMessage.ANIMAL_NOT_PENDING);
     }
 
+    if (
+      !animal.inqueries
+        .map((inquery) => inquery.authorId)
+        .includes(dto.adopterId)
+    ) {
+      throw new BadRequestException(ErrorMessage.USER_NOT_INQUERIER);
+    }
+
     await this.prisma.$transaction([
       this.prisma.animal.update({
         where: {
@@ -314,6 +313,7 @@ export class AnimalService {
         },
         data: {
           status: AnimalStatus.ADOPTED,
+          adoptedById: dto.adopterId,
         },
       }),
       this.prisma.inquery.updateMany({
@@ -322,13 +322,6 @@ export class AnimalService {
         },
         data: {
           status: InqueryStatus.FINISHED,
-        },
-      }),
-      this.prisma.message.deleteMany({
-        where: {
-          inquery: {
-            animalId,
-          },
         },
       }),
     ]);

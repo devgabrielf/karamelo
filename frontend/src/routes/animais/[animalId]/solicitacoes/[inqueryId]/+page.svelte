@@ -7,7 +7,7 @@
 	import { InqueryStatus } from "$enums";
 	import { goto, invalidate } from "$app/navigation";
 
-	import { Box, Button, ImageCard, Modal } from "$components";
+	import { Box, Button, ImageCard, InqueryMessages } from "$components";
 
 	export let data: PageData;
 
@@ -16,9 +16,11 @@
 	$: user = data.user;
 	$: animal = data.animal;
 
-	$: showMessagesModal = false;
+	let showMessagesModal = false;
 
 	let isFetching = false;
+
+	let currentMessage = "";
 
 	const handleReject = async () => {
 		if (isFetching) {
@@ -42,7 +44,7 @@
 
 			toast(`Solicitação rejeitada.`, ToastType.SUCCESS);
 		} else {
-			toast(`Ocorreu um erro ao rejeitar a solicitação.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao rejeitar a solicitação.", ToastType.ERROR);
 		}
 
 		isFetching = false;
@@ -59,7 +61,6 @@
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${user.accessToken}`,
-				"Content-Type": "application/json",
 			},
 		});
 
@@ -67,7 +68,35 @@
 			await invalidate("animal:inqueries");
 			toast(`Solicitação aceita.`, ToastType.SUCCESS);
 		} else {
-			toast(`Ocorreu um erro ao aceitar a solicitação.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao aceitar a solicitação.", ToastType.ERROR);
+		}
+
+		isFetching = false;
+	};
+
+	const handleFinish = async () => {
+		if (isFetching) {
+			return;
+		}
+
+		isFetching = true;
+
+		const response = await fetch(`${API_BASE_URL}/animals/${inquery.animal.id}/mark-as-adopted`, {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${user.accessToken}`,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				adopterId: author.id,
+			}),
+		});
+
+		if (response.ok) {
+			goto("/perfil/animais-cadastrados/");
+			toast(`Solicitação finalizada.`, ToastType.SUCCESS);
+		} else {
+			toast("Ocorreu um erro ao finalizar a solicitação.", ToastType.ERROR);
 		}
 
 		isFetching = false;
@@ -91,7 +120,7 @@
 						alt={author.name}
 						class="aspect-square h-36 rounded-full object-cover"
 					/>
-					<span class="text-lg">{author.name}</span>
+					<span class="text-lg font-medium text-center">{author.name}</span>
 				</div>
 				<div class="flex-[2]">
 					<h2 class="mb-2 text-lg font-bold">Mensagem:</h2>
@@ -126,7 +155,7 @@
 					<span>{author.name.split(" ")[0]} adotou {animal.name}?</span>
 					<Button
 						as="button"
-						on:click={handleAccept}
+						on:click={handleFinish}
 						variant="approve"
 						size="small"
 						className="w-40"
@@ -146,6 +175,9 @@
 		</div>
 	</div>
 </Box>
-<Modal bind:showModal={showMessagesModal} on:close={() => (showMessagesModal = false)}>
-	<p>Mensagens</p>
-</Modal>
+<InqueryMessages
+	on:close={() => (showMessagesModal = false)}
+	bind:showMessages={showMessagesModal}
+	{inquery}
+	{user}
+/>

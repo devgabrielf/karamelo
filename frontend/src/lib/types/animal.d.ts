@@ -18,7 +18,7 @@ export type Animal = {
 	status: AnimalStatus;
 	createdAt: string;
 	author: Pick<User, "id" | "name" | "avatar">;
-	inquery: Inquery | null;
+	inquery: Pick<Inquery, "id" | "message" | "animalId" | "authorId" | "status" | "createdAt"> | null;
 };
 
 export type AnimalSimple = Pick<

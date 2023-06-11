@@ -243,7 +243,7 @@ export class UserService {
     }
 
     if (image.userId !== userId) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     const fullImagePath = getFullImagePath(image.fileName);

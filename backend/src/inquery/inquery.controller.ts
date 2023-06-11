@@ -64,8 +64,15 @@ export class InqueryController {
     return this.inqueryService.rejectInquery(inqueryId, userId);
   }
 
+  @Get(':id/messages')
+  getMessagesByInqueryId(
+    @GetUser('id') userId: GetUserType['id'],
+    @Param('id') inqueryId: string,
+  ) {
+    return this.inqueryService.getMessagesByInqueryId(inqueryId, userId);
+  }
+
   @Post(':id/messages')
-  @HttpCode(HttpStatus.NO_CONTENT)
   sendMessage(
     @GetUser('id') userId: GetUserType['id'],
     @Param('id') inqueryId: string,

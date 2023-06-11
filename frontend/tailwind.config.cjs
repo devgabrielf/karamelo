@@ -9,7 +9,10 @@ module.exports = {
     },
     fontFamily: {
       quicksand: ["Quicksand", "sans-serif"],
+      rowdies: ["Rowdies", "sans-serif"],
   },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }

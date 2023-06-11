@@ -1,4 +1,5 @@
 import { toast as libToast } from "@zerodevx/svelte-toast";
+import type { SvelteToastOptions } from "@zerodevx/svelte-toast/stores";
 
 export enum ToastType {
 	SUCCESS = "success",
@@ -16,12 +17,18 @@ const themes = {
 	},
 };
 
-export const toast = (message: string, type: ToastType) => {
-	libToast.push(message, {
+export const toast = (message: string, type: ToastType, target: string | undefined = undefined) => {
+	const options: SvelteToastOptions = {
 		theme: {
 			"--toastColor": "#fff",
 			"--toastWidth": "fit-content",
 			...themes[type],
 		},
-	});
+	};
+
+	if (target) {
+		options.target = target;
+	}
+
+	libToast.push(message, options);
 };

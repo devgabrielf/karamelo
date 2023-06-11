@@ -33,6 +33,9 @@ export class InqueryService {
             authorId: true,
             createdAt: true,
           },
+          orderBy: {
+            createdAt: 'asc',
+          },
         },
         animal: {
           select: {
@@ -61,6 +64,7 @@ export class InqueryService {
             name: true,
             city: true,
             uf: true,
+            avatar: true,
             picture: true,
             homeImages: true,
           },
@@ -96,6 +100,7 @@ export class InqueryService {
       },
       author: {
         ...inquery.author,
+        avatar: getImagePath(inquery.author.avatar),
         picture: getImagePath(inquery.author.picture),
         homeImages: inquery.author.homeImages.map((image) => ({
           id: image.id,
@@ -106,7 +111,7 @@ export class InqueryService {
   }
 
   async getMyInqueries(userId: GetUserType['id']) {
-    const inqueries = await this.prisma.inquery.findMany({
+    const _inqueries = await this.prisma.inquery.findMany({
       where: {
         authorId: userId,
       },
@@ -124,11 +129,24 @@ export class InqueryService {
             months: true,
             species: true,
             status: true,
+            adoptedById: true,
             createdAt: true,
           },
         },
       },
     });
+
+    const inqueries = _inqueries.map((inquery) => ({
+      ...inquery,
+      animal: {
+        ...inquery.animal,
+        adoptedById: undefined,
+        adopter:
+          inquery.status !== InqueryStatus.FINISHED
+            ? undefined
+            : inquery.animal.adoptedById === userId,
+      },
+    }));
 
     return inqueries;
   }
@@ -153,8 +171,12 @@ export class InqueryService {
       },
     });
 
+    if (animal.status !== AnimalStatus.APPROVED) {
+      throw new NotFoundException(ErrorMessage.ANIMAL_NOT_AVAILABLE);
+    }
+
     if (animal.authorId !== userId) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     const inqueries = await this.prisma.inquery.findMany({
@@ -268,7 +290,7 @@ export class InqueryService {
     }
 
     if (inquery.animal.authorId !== userId) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     if (inquery.status !== InqueryStatus.PENDING) {
@@ -305,7 +327,7 @@ export class InqueryService {
     }
 
     if (inquery.animal.authorId !== userId) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     if (inquery.status !== InqueryStatus.PENDING) {
@@ -320,6 +342,59 @@ export class InqueryService {
         status: InqueryStatus.REJECTED,
       },
     });
+  }
+
+  async getMessagesByInqueryId(inqueryId: string, authorId: GetUserType['id']) {
+    const inquery = await this.prisma.inquery.findUnique({
+      where: {
+        id: inqueryId,
+      },
+      select: {
+        status: true,
+        authorId: true,
+        animal: {
+          select: {
+            authorId: true,
+          },
+        },
+      },
+    });
+
+    if (!inquery) {
+      throw new NotFoundException(ErrorMessage.INQUERY_NOT_FOUND);
+    }
+
+    if (inquery.status === InqueryStatus.PENDING) {
+      throw new ForbiddenException(ErrorMessage.INQUERY_PENDING);
+    }
+
+    if (
+      [InqueryStatus.REJECTED, InqueryStatus.FINISHED].includes(
+        inquery.status as InqueryStatus,
+      )
+    ) {
+      throw new ForbiddenException(ErrorMessage.INQUERY_FINISHED);
+    }
+
+    const isAuthor = inquery.authorId === authorId;
+    const isAnimalAuthor = inquery.animal.authorId === authorId;
+
+    if (!(isAuthor || isAnimalAuthor)) {
+      throw new ForbiddenException('ACCESS_DENIED');
+    }
+
+    const messages = await this.prisma.message.findMany({
+      where: {
+        inqueryId,
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    return {
+      messages,
+    };
   }
 
   async sendMessage(
@@ -346,11 +421,23 @@ export class InqueryService {
       throw new NotFoundException(ErrorMessage.INQUERY_NOT_FOUND);
     }
 
+    if (inquery.status === InqueryStatus.PENDING) {
+      throw new ForbiddenException(ErrorMessage.INQUERY_PENDING);
+    }
+
+    if (
+      [InqueryStatus.REJECTED, InqueryStatus.FINISHED].includes(
+        inquery.status as InqueryStatus,
+      )
+    ) {
+      throw new ForbiddenException(ErrorMessage.INQUERY_FINISHED);
+    }
+
     const isAuthor = inquery.authorId === authorId;
     const isAnimalAuthor = inquery.animal.authorId === authorId;
 
     if (!(isAuthor || isAnimalAuthor)) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     const message = await this.prisma.message.create({
@@ -360,6 +447,8 @@ export class InqueryService {
         ...dto,
       },
     });
+
+    console.log({ message });
 
     return message;
   }

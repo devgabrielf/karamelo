@@ -38,7 +38,7 @@
 			const { homeImages } = await response.json();
 			user.homeImages = homeImages;
 		} else {
-			toast(`Ocorreu um erro ao enviar a foto.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao enviar a foto.", ToastType.ERROR);
 		}
 
 		isUploadingImage = false;
@@ -54,17 +54,17 @@
 		const imageId = event.detail.imageId as number;
 
 		const response = await fetch(`${API_BASE_URL}/users/me/images/${imageId}`, {
+			method: "DELETE",
 			headers: {
 				"Access-Control-Allow-Origin": "origin-list",
 				Authorization: `Bearer ${user.accessToken}`,
 			},
-			method: "DELETE",
 		});
 
 		if (response.ok) {
 			user.homeImages = user.homeImages.filter(image => image.id !== imageId);
 		} else {
-			toast(`Ocorreu um erro ao remover a foto.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao remover a foto.", ToastType.ERROR);
 		}
 
 		isDeletingImage = false;

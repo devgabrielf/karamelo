@@ -12,8 +12,13 @@ import {
 import { GetUser, Public } from '../auth/decorators';
 import { AnimalService } from './animal.service';
 import { UserRole } from '../user/enums';
-import { GetAnimalsQueryDto, RegisterAnimalDto } from './dtos';
+import {
+  GetAnimalsQueryDto,
+  MarkAsAdoptedDto,
+  RegisterAnimalDto,
+} from './dtos';
 import { GetUserType } from '../user/types';
+import { AnimalStatus } from './enums';
 
 @Controller('animals')
 export class AnimalController {
@@ -24,12 +29,6 @@ export class AnimalController {
     return this.animalService.getAnimalsByAuthorId(userId);
   }
 
-  @Get(':id')
-  @Public()
-  getAnimalById(@GetUser() user: GetUserType, @Param('id') animalId: string) {
-    return this.animalService.getAnimalById(animalId, user);
-  }
-
   @Get()
   @Public()
   getAnimals(
@@ -38,13 +37,19 @@ export class AnimalController {
     return this.animalService.getAnimals(limit, offset, species, uf, city);
   }
 
-  @Get()
+  @Get('pending')
   getPendingAnimals(@GetUser('role') role: GetUserType['role']) {
     if (role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     return this.animalService.getPendingAnimals();
+  }
+
+  @Get(':id')
+  @Public()
+  getAnimalById(@GetUser() user: GetUserType, @Param('id') animalId: string) {
+    return this.animalService.getAnimalById(animalId, user);
   }
 
   @Post()
@@ -62,31 +67,32 @@ export class AnimalController {
     @Param('id') animalId: string,
   ) {
     if (role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
-    return this.animalService.approveAnimal(animalId);
+    return this.animalService.evaluteAnimal(animalId, AnimalStatus.APPROVED);
   }
 
-  @Post(':id/reject')
+  @Post(':id/disapprove')
   @HttpCode(HttpStatus.NO_CONTENT)
   rejectAnimal(
     @GetUser('role') role: GetUserType['role'],
     @Param('id') animalId: string,
   ) {
     if (role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
-    return this.animalService.rejectAnimal(animalId);
+    return this.animalService.evaluteAnimal(animalId, AnimalStatus.REJECTED);
   }
 
-  @Post(':id/markasadopted')
+  @Post(':id/mark-as-adopted')
   @HttpCode(HttpStatus.NO_CONTENT)
   markAsAdopted(
     @GetUser('id') userId: GetUserType['id'],
     @Param('id') animalId: string,
+    @Body() dto: MarkAsAdoptedDto,
   ) {
-    return this.animalService.markAsAdopted(animalId, userId);
+    return this.animalService.markAsAdopted(dto, animalId, userId);
   }
 }

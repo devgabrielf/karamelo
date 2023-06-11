@@ -5,7 +5,7 @@
 	import type { PageData } from "./$types";
 	import { getCities, getUFs } from "$api/ibge";
 
-	import { AnimalCard, SelectField } from "$components";
+	import { AnimalCard, NoResults, SelectField } from "$components";
 	import { API_BASE_URL } from "$lib/consts";
 
 	export let data: PageData;
@@ -107,7 +107,7 @@
 		class="absolute left-0 top-0 -z-20 h-full w-full object-cover"
 	/>
 	<div class="absolute top-0 left-0 -z-10 h-full w-full bg-slate-900/50" />
-	<h1 class="text-center text-5xl font-bold text-zinc-50">
+	<h1 class="text-center font-rowdies text-5xl font-bold text-zinc-50">
 		Ajude um pet a encontrar<br /> sua nova casa
 	</h1>
 </div>
@@ -152,8 +152,14 @@
 		<Search color="white" />
 	</button>
 </form>
-<div class="mx-auto mb-16 grid max-w-5xl grid-cols-4 gap-8">
-	{#each animals as animal (animal.id)}
-		<AnimalCard {animal} />
-	{/each}
-</div>
+{#if animals.length}
+	<div class="mx-auto mb-16 grid max-w-5xl grid-cols-4 gap-8">
+		{#each animals as animal (animal.id)}
+			<AnimalCard {animal} />
+		{/each}
+	</div>
+{:else}
+	<div class="py-10">
+		<NoResults description="Nenhum animal encontrado." />
+	</div>
+{/if}

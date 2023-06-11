@@ -127,7 +127,7 @@ export class UserController {
     @Param('id') userId: string,
   ) {
     if (role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Access denied');
+      throw new ForbiddenException('ACCESS_DENIED');
     }
 
     return this.userService.banUser(userId);

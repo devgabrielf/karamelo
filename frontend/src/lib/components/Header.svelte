@@ -2,10 +2,10 @@
 	import { page } from "$app/stores";
 	import type { User } from "$types";
 
-	import { Button, UserDropdown } from "$components";
+	import { Button, Logo, UserDropdown } from "$components";
 	import { getRedirectUrl } from "$utils";
 
-	const excludedPaths = ["/", "/entrar", "/cadastro"];
+	const excludedPaths = ["/", "/entrar", "/cadastrar"];
 
 	let redirectSearchParam: string;
 
@@ -33,7 +33,7 @@
 	class="fixed top-0 z-50 h-16 w-screen max-w-full border-t-4 border-t-amber-600 bg-slate-50 shadow-md"
 >
 	<div class="mx-auto flex h-full max-w-5xl items-center justify-between">
-		<a href="/" class="select-none text-2xl font-bold text-zinc-900 transition-colors">Karamelo</a>
+		<Logo />
 		<nav class=" flex items-center gap-5">
 			<Button as="a" href="/cadastrar-animal" variant="tertiary" size="small"
 				>Cadastrar animal</Button
@@ -42,7 +42,7 @@
 			{#if user}
 				<UserDropdown {user} />
 			{:else}
-				<Button as="a" href="/cadastro{redirectSearchParam}" variant="tertiary" size="small"
+				<Button as="a" href="/cadastrar{redirectSearchParam}" variant="tertiary" size="small"
 					>Cadastrar</Button
 				>
 				<Button as="a" href="/entrar{redirectSearchParam}" variant="tertiary" size="small"

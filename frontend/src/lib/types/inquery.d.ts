@@ -18,11 +18,11 @@ export type Inquery = {
 	createdAt: string;
 	messages: Message[];
 	animal: AnimalSimple & { author: Pick<User, "id" | "name" | "avatar"> };
-	author: Pick<User, "id" | "name" | "city" | "uf" | "picture" | "homeImages">;
+	author: Pick<User, "id" | "name" | "city" | "uf" | "avatar" | "picture" | "homeImages">;
 };
 
 export type MyInqueries = (Pick<Inquery, "id" | "status" | "createdAt"> & {
-	animal: AnimalSimple;
+	animal: AnimalSimple & { adopter?: boolean };
 })[];
 
 export type InqueriesByAnimal = {

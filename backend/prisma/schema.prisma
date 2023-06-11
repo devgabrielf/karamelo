@@ -24,8 +24,10 @@ model User {
   role       String      @default("USER")
   status     String      @default("ACTIVE")
 
-  registeredAnimals Animal[]
+  registeredAnimals Animal[] @relation("Register")
   inqueries         Inquery[]
+
+  adoptedAnimals Animal[] @relation("Adoption")
 
   sentReports     UserReport[] @relation("reporter")
   receivedReports UserReport[] @relation("reported")
@@ -59,7 +61,10 @@ model Animal {
   status      String        @default("PENDING")
 
   authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User   @relation("Register", fields: [authorId], references: [id], onDelete: Cascade)
+
+  adoptedById String?
+  adoptedBy User? @relation("Adoption", fields: [adoptedById], references: [id], onDelete: Cascade)
 
   inqueries Inquery[]
 

@@ -1,0 +1,10 @@
+{
+	"name": "karamelo",
+	"version": "1.0.0",
+	"private": false,
+	"license": "MIT",
+	"scripts": {
+		"backend": "npm --prefix backend run db:dev:up && npm --prefix backend run start:dev",
+		"frontend": "npx --prefix frontend vite dev"
+	}
+}

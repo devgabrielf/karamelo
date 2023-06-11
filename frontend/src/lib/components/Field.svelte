@@ -26,7 +26,7 @@
 		on:input
 		bind:value
 		{...$$restProps}
-		class="mb-1 rounded-md border border-zinc-200 bg-white p-2 outline-none transition-colors hover:border-zinc-300 focus:border-amber-600 {error
+		class="mb-1 rounded-md border border-zinc-200 bg-white p-2 caret-amber-600 outline-none transition-colors hover:border-zinc-300 focus:border-amber-600 {error
 			? 'border-red-500'
 			: ''}"
 	/>

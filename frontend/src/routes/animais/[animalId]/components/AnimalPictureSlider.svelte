@@ -76,7 +76,7 @@
 </script>
 
 <div
-	class="relative mb-8 flex w-screen items-center justify-center border-b-4 border-b-amber-600 bg-slate-900 py-2"
+	class="relative mb-8 flex w-full items-center justify-center border-b-4 border-b-amber-600 bg-slate-900 py-2"
 >
 	<div class="flex w-full max-w-5xl items-center">
 		{#if pictures.length > 1}

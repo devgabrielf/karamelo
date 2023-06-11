@@ -7,4 +7,8 @@ export const load = (async event => {
 	if (!user) {
 		throw redirect(303, "/");
 	}
+
+	return {
+		title: "Perfil"
+	}
 }) satisfies LayoutServerLoad;

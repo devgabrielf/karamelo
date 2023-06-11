@@ -67,7 +67,7 @@
 					href="/perfil/"
 					variant="tertiary"
 					size="small"
-					className="text-start font-normal">Perfil</Button
+					className="text-start font-medium">Perfil</Button
 				>
 				<Button
 					as="a"
@@ -75,7 +75,7 @@
 					href="/perfil/solicitacoes/"
 					variant="tertiary"
 					size="small"
-					className="text-start font-normal">Solicitações</Button
+					className="text-start font-medium">Solicitações</Button
 				>
 				<Button
 					as="a"
@@ -83,16 +83,16 @@
 					href="/perfil/animais-cadastrados/"
 					variant="tertiary"
 					size="small"
-					className="text-start font-normal">Animais cadastrados</Button
+					className="text-start font-medium">Animais cadastrados</Button
 				>
 				{#if user.role === UserRole.ADMIN}
 					<Button
 						as="a"
 						on:click={() => (isOpen = false)}
-						href="/admin/"
+						href="/perfil/animais-pendentes/"
 						variant="tertiary"
 						size="small"
-						className="text-start font-normal">Painel administrativo</Button
+						className="text-start font-medium">Animais pendentes</Button
 					>
 				{/if}
 				<form
@@ -115,7 +115,7 @@
 						type="submit"
 						variant="tertiary"
 						size="small"
-						className="text-start font-normal w-full">Sair</Button
+						className="text-start font-medium w-full">Sair</Button
 					>
 				</form>
 			</div>

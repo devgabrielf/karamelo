@@ -24,5 +24,6 @@ export const load = (async ({ depends, fetch, parent, params }) => {
 		animal,
 		inqueries,
 		user,
+		title: `Solicitações de ${animal.name}`
 	};
 }) satisfies LayoutLoad;

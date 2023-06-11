@@ -19,7 +19,10 @@ export const load = (async event => {
 
 	const form = await superValidate(event, signInSchema);
 
-	return { form };
+	return {
+		form,
+		title: "Entrar",
+	};
 }) satisfies PageServerLoad;
 
 export const actions = {

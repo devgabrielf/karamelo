@@ -31,7 +31,7 @@
 		if (response.ok) {
 			invalidateAll();
 		} else {
-			toast(`Ocorreu um erro ao remover a foto.`, ToastType.ERROR);
+			toast("Ocorreu um erro ao remover a foto.", ToastType.ERROR);
 		}
 
 		isDeletingPicture = false;
@@ -51,11 +51,11 @@
 		formData.append("file", file);
 
 		const response = await fetch(`${API_BASE_URL}/users/me/avatar`, {
+			method: "POST",
 			headers: {
 				"Access-Control-Allow-Origin": "origin-list",
 				Authorization: `Bearer ${user.accessToken}`,
 			},
-			method: "POST",
 			body: formData,
 		});
 

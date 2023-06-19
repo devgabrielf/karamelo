@@ -4,6 +4,7 @@
 	"private": false,
 	"license": "MIT",
 	"scripts": {
+		"install": "npm --prefix backend i && npm --prefix frontend i",
 		"backend": "npm --prefix backend run db:dev:up && npm --prefix backend run start:dev",
 		"frontend": "npx --prefix frontend vite dev"
 	}

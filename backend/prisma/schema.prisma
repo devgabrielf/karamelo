@@ -68,7 +68,7 @@ model Animal {
 
   inqueries Inquery[]
 
-  @@map("adnimals")
+  @@map("animals")
 }
 
 model AnimalImage {

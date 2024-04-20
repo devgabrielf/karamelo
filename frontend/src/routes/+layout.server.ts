@@ -4,7 +4,7 @@ import type { LayoutServerLoad } from "./$types";
 
 export const load = (async ({ cookies, fetch }) => {
 	const accessToken = cookies.get("accessToken");
-	
+
 	if (!accessToken) {
 		return {
 			user: null,

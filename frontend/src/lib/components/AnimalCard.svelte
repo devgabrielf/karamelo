@@ -59,7 +59,7 @@
 					on:click={() => (showMessagesModal = true)}
 					aria-label="Mensagens"
 					title="Mensagens"
-					class="mr-1 rounded-full text-zinc-600 z-10"
+					class="z-10 mr-1 rounded-full text-zinc-600"
 				>
 					<MessageCircle />
 				</button>
@@ -71,7 +71,7 @@
 	<InqueryMessages
 		on:close={() => (showMessagesModal = false)}
 		bind:showMessages={showMessagesModal}
-		inqueryId={inqueryId}
+		{inqueryId}
 		{user}
 	/>
 {/if}

@@ -21,6 +21,6 @@ export const load = (async ({ fetch, parent }) => {
 	return {
 		animals,
 		user,
-		title: "Animais cadastrados"
+		title: "Animais cadastrados",
 	};
 }) satisfies PageLoad;

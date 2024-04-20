@@ -19,7 +19,6 @@
   "prisma": {
     "seed": "node --loader ts-node/esm ./prisma/seed.ts"
   },
-
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",

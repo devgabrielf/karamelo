@@ -228,12 +228,7 @@
 		</div>
 		<div class="mt-2 grid grid-cols-3 gap-4">
 			{#each pictures as picture (picture)}
-				<ImageCard
-					id={picture}
-					src={picture}
-					on:delete={handleImageDelete}
-					isDeletable
-				/>
+				<ImageCard id={picture} src={picture} on:delete={handleImageDelete} isDeletable />
 			{/each}
 			{#if pictures.length < 4}
 				<ImageInput on:upload={handleImageUpload} />

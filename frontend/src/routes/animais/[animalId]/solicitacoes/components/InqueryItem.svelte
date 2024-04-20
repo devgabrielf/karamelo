@@ -50,9 +50,7 @@
 				<span class="bg-ap mx-1 mb-[1px] inline-block h-2 w-2 rounded-full {getStatusColor()}" />
 				{getStatusLabel()}
 			</p>
-			<div
-				class="invisible text-zinc-500 {isActive ? 'group-hover:visible' : ''}"
-			>
+			<div class="invisible text-zinc-500 {isActive ? 'group-hover:visible' : ''}">
 				<ChevronsRight size={24} />
 			</div>
 		</div>

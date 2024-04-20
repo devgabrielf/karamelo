@@ -120,7 +120,7 @@
 						alt={author.name}
 						class="aspect-square h-36 rounded-full object-cover"
 					/>
-					<span class="text-lg font-medium text-center">{author.name}</span>
+					<span class="text-center text-lg font-medium">{author.name}</span>
 				</div>
 				<div class="flex-[2]">
 					<h2 class="mb-2 text-lg font-bold">Mensagem:</h2>

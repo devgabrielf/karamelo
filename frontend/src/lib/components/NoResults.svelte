@@ -4,7 +4,7 @@
 	export let description: string;
 </script>
 
-<div class="flex flex-col gap-4 items-center">
+<div class="flex flex-col items-center gap-4">
 	<Footprint width={100} height={100} color="#d0d0d7" />
 	<p class="w-56 text-center text-zinc-500">{description}</p>
 </div>

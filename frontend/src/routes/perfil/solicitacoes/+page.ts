@@ -21,6 +21,6 @@ export const load = (async ({ fetch, parent }) => {
 	return {
 		inqueries,
 		user,
-		title: "Solicitações"
+		title: "Solicitações",
 	};
 }) satisfies PageLoad;

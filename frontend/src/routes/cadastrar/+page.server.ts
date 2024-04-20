@@ -33,7 +33,7 @@ export const load = (async event => {
 
 	return {
 		form,
-		title: "Cadastrar"
+		title: "Cadastrar",
 	};
 }) satisfies PageServerLoad;
 

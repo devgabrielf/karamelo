@@ -33,14 +33,14 @@
 </script>
 
 <svelte:head>
-   {#if isOpen}
-      <style>
-         body {
-            overflow: hidden;
-         }
-      </style>
-   {/if}
-</svelte:head>	
+	{#if isOpen}
+		<style>
+			body {
+				overflow: hidden;
+			}
+		</style>
+	{/if}
+</svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
@@ -75,7 +75,7 @@
 				on:click|stopPropagation={() => (isOpen = true)}
 				aria-label="Visualizar"
 				title="Visualizar"
-				class="absolute right-[calc(50%-1.7rem)] top-[calc(50%-1.7rem)] z-10 hidden rounded-full bg-zinc-700/60 p-3 hover:bg-zinc-800/60 group-hover:block"
+				class="absolute right-[calc(50%-1.7rem)] top-[calc(50%-1.7rem)] z-10 hidden rounded-full bg-zinc-700/60 p-3 group-hover:block hover:bg-zinc-800/60"
 			>
 				<Search color="#fff" size={24} />
 			</button>
@@ -84,7 +84,7 @@
 					on:click={onDelete}
 					aria-label="Remover foto"
 					title="Remover foto"
-					class="absolute right-2 top-2 z-10 hidden rounded-full bg-zinc-700/70 p-1 hover:bg-zinc-800/70 group-hover:block"
+					class="absolute right-2 top-2 z-10 hidden rounded-full bg-zinc-700/70 p-1 group-hover:block hover:bg-zinc-800/70"
 				>
 					<X color="#fff" size={18} />
 				</button>

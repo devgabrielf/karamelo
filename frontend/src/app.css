@@ -3,32 +3,31 @@
 @tailwind utilities;
 
 body {
-    @apply bg-zinc-200 text-zinc-900 font-quicksand font-medium
+	@apply bg-zinc-200 font-quicksand font-medium text-zinc-900;
 }
 
 body *::selection {
-    color: #fff;
-    background: #d97706;
+	color: #fff;
+	background: #d97706;
 }
 
 body.modal-open {
-    @apply h-screen overflow-y-hidden
+	@apply h-screen overflow-y-hidden;
 }
 
 img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  user-select: none;
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
+	user-select: none;
 }
 
-
 @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+}

@@ -78,7 +78,7 @@
 			on:click={handlePictureDelete}
 			aria-label="Remover foto"
 			title="Remover foto"
-			class="absolute right-0 top-0 z-10 hidden rounded-full bg-zinc-700/70 p-1 hover:bg-zinc-800/70 group-hover/container:block"
+			class="absolute right-0 top-0 z-10 hidden rounded-full bg-zinc-700/70 p-1 group-hover/container:block hover:bg-zinc-800/70"
 		>
 			<X color="#fff" size={18} />
 		</button>

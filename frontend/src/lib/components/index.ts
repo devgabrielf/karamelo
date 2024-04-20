@@ -4,7 +4,7 @@ export { default as Button } from "./Button.svelte";
 export { default as Container } from "./Container.svelte";
 export { default as Field } from "./Field.svelte";
 export { default as Footer } from "./Footer.svelte";
-export { default as Footprint } from "./Footprint.svelte"
+export { default as Footprint } from "./Footprint.svelte";
 export { default as Header } from "./Header.svelte";
 export { default as ImageCard } from "./ImageCard.svelte";
 export { default as ImageInput } from "./ImageInput.svelte";

@@ -10,7 +10,7 @@
 </script>
 
 <div class="mx-auto flex w-full max-w-5xl items-start gap-8 pt-20">
-	<aside class="fixed flex flex-col gap-4 w-[21rem]">
+	<aside class="fixed flex w-[21rem] flex-col gap-4">
 		<Link
 			title="Perfil"
 			description="Visualizar e editar perfil"

@@ -9,6 +9,6 @@ export const load = (async event => {
 	}
 
 	return {
-		title: "Perfil"
-	}
+		title: "Perfil",
+	};
 }) satisfies LayoutServerLoad;

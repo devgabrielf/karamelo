@@ -35,17 +35,17 @@
 	<div class="mx-auto flex h-full max-w-5xl items-center justify-between">
 		<Logo />
 		<nav class=" flex items-center gap-5">
-			<Button as="a" href="/cadastrar-animal" variant="tertiary" size="small"
-				>Cadastrar animal</Button
-			>
+			<Button as="a" href="/cadastrar-animal/" variant="tertiary" size="small">
+				Cadastrar animal
+			</Button>
 			<div class="h-8 w-[1px] bg-zinc-600" />
 			{#if user}
 				<UserDropdown {user} />
 			{:else}
-				<Button as="a" href="/cadastrar{redirectSearchParam}" variant="tertiary" size="small"
+				<Button as="a" href="/cadastrar{redirectSearchParam}/" variant="tertiary" size="small"
 					>Cadastrar</Button
 				>
-				<Button as="a" href="/entrar{redirectSearchParam}" variant="tertiary" size="small"
+				<Button as="a" href="/entrar{redirectSearchParam}/" variant="tertiary" size="small"
 					>Entrar</Button
 				>
 			{/if}

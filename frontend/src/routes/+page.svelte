@@ -11,7 +11,6 @@
 	export let data: PageData;
 
 	$: animals = data.animals;
-	$: totalAnimals = data.total;
 
 	type SelectType =
 		| {
@@ -50,6 +49,12 @@
 	let selectedUf: SelectType;
 	let selectedCity: SelectType;
 
+	$: {
+		selectedCity = cities.some(city => city?.value === selectedCity?.value)
+			? selectedCity
+			: undefined;
+	}
+
 	let isFetching = false;
 
 	const handleFilter = async () => {
@@ -86,7 +91,6 @@
 		const responseJSON = await response.json();
 
 		animals = responseJSON.animals;
-		totalAnimals = responseJSON.total;
 
 		isFetching = false;
 	};
@@ -147,7 +151,7 @@
 		aria-label="Buscar"
 		title="Buscar"
 		disabled={isFetching}
-		class="rounded-lg bg-amber-600 p-2 transition-colors hover:bg-amber-700"
+		class="rounded-lg bg-amber-600 p-2 transition-colors hover:bg-amber-700 active:opacity-70"
 	>
 		<Search color="white" />
 	</button>

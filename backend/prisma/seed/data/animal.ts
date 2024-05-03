@@ -1,0 +1,58 @@
+export const animal = [
+  {
+    id: 'lpNEzvBn',
+    createdAt: '2024-04-21T20:56:44.213Z',
+    name: 'Luna',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    species: 'cat',
+    sex: 'F',
+    months: 8,
+    city: 'Betim',
+    uf: 'MG',
+    status: 'APPROVED',
+    authorId: 'AqlLTiMi',
+  },
+  {
+    id: 'x7U3Pen1',
+    createdAt: '2024-04-21T22:00:49.123Z',
+    name: 'Theo',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    species: 'dog',
+    sex: 'M',
+    months: 13,
+    city: 'Belo Horizonte',
+    uf: 'MG',
+    status: 'APPROVED',
+    authorId: 'AqlLTiMi',
+  },
+  {
+    id: 'E9ogDTr2',
+    createdAt: '2024-04-21T22:00:49.123Z',
+    name: 'Minnie',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    species: 'dog',
+    sex: 'F',
+    months: 18,
+    city: 'Vila Velha',
+    uf: 'ES',
+    status: 'APPROVED',
+    authorId: 'uIC1g8xT',
+  },
+  {
+    id: 'DmW_1DDq',
+    createdAt: '2024-04-26T23:51:44.092Z',
+    name: 'Luke',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    species: 'cat',
+    sex: 'M',
+    months: 7,
+    city: 'Brasília',
+    uf: 'DF',
+    status: 'APPROVED',
+    authorId: 'AqlLTiMi',
+  },
+];

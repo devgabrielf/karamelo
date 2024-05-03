@@ -60,6 +60,12 @@ export const actions = {
 
 		const { fetch, cookies } = event;
 
+		console.log({
+			a: JSON.parse(form.data.pictures).map(
+				(picture: { fileName: string; src: string }) => picture.fileName,
+			),
+		});
+
 		const data = {
 			name: form.data.name,
 			species: JSON.parse(form.data.species).value,
@@ -68,7 +74,9 @@ export const actions = {
 			uf: JSON.parse(form.data.uf).value,
 			city: JSON.parse(form.data.city).value,
 			description: form.data.description,
-			pictures: JSON.parse(form.data.pictures),
+			pictures: JSON.parse(form.data.pictures).map(
+				(picture: { fileName: string; src: string }) => picture.fileName,
+			),
 		};
 
 		const response = await fetch(`${API_BASE_URL}/animals/`, {

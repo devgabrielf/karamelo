@@ -18,7 +18,7 @@
 	export let as: Element;
 	export let variant: "primary" | "secondary" | "tertiary" | "approve" | "reject" = "primary";
 	export let size: "small" | "medium" | "large" = "large";
-	export let className: string = "";
+	export let className = "";
 
 	const variants = {
 		primary: "border-amber-600 bg-amber-600 text-zinc-50 hover:border-amber-700 hover:bg-amber-700",
@@ -37,9 +37,9 @@
 
 <svelte:element
 	this={as}
-	class="select-none border text-center font-bold transition-colors {sizes[size]} {variants[
-		variant
-	]} {className}"
+	class="select-none border text-center font-bold transition-colors active:opacity-70 {sizes[
+		size
+	]} {variants[variant]} {className}"
 	on:click
 	{...$$restProps}
 >

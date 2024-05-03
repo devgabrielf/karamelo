@@ -4,14 +4,14 @@
 	type $$Props = HTMLInputAttributes & {
 		name: string;
 		label?: string;
-		value: string;
+		value: string | number;
 		error?: string;
 		className?: string;
 	};
 
 	export let name: string;
 	export let label = "";
-	export let value: string;
+	export let value: string | number;
 	export let error = "";
 	export let className = "";
 </script>

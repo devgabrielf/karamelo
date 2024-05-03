@@ -3,7 +3,7 @@
 	import { goto } from "$app/navigation";
 	import type { PageData } from "./$types";
 	import { AnimalStatus, InqueryStatus, Sex } from "$enums";
-	import { getAvatar, getFormattedAge, getRedirectUrl } from "$utils";
+	import { getAvatar, getFormattedAge, getRedirectUrl, getSexIcon } from "$utils";
 	import { ToastType, toast } from "$lib/toast";
 	import { CheckCircle2, MessageCircle } from "lucide-svelte";
 
@@ -130,7 +130,7 @@
 		<div class="mb-4 flex items-center">
 			<strong class="flex-1 text-4xl">{animal.name}</strong>
 			<img
-				src="../src/assets/{animal.sex === Sex.FEMALE ? 'fe' : ''}male.svg"
+				src={getSexIcon(animal.sex)}
 				alt={animal.sex === Sex.MALE ? "Male" : "Female"}
 				class="h-6 w-6"
 			/>

@@ -5,6 +5,7 @@
 	import { InqueryStatus } from "$enums";
 	import { ChevronsRight } from "lucide-svelte";
 
+	export let animalId: string;
 	export let inquery: ValuesType<InqueriesByAnimal["inqueries"]>;
 
 	$: author = inquery.author;
@@ -37,7 +38,7 @@
 <li class="w-full rounded-lg hover:bg-gray-200/40 hover:shadow-sm">
 	<svelte:element
 		this={isActive ? "a" : "div"}
-		href="solicitacoes/{inquery.id}/"
+		href="/animais/{animalId}/solicitacoes/{inquery.id}/"
 		class="group flex items-center justify-between py-2 px-4"
 	>
 		<div class="flex items-center gap-4">

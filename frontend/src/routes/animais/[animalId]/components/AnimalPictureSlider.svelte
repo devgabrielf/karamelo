@@ -39,7 +39,7 @@
 
 		return {
 			id: `${newNext.id}-${nanoid(4)}`,
-			src: newNext.src,
+			src:newNext.src,
 			index: newNextIndex,
 		};
 	};

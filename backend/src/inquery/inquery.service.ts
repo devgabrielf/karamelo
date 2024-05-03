@@ -89,9 +89,9 @@ export class InqueryService {
       ...inquery,
       animal: {
         ...inquery.animal,
-        pictures: inquery.animal.pictures.map(({ id, src }) => ({
+        pictures: inquery.animal.pictures.map(({ id, fileName }) => ({
           id,
-          src,
+          src: getImagePath(fileName),
         })),
         author: {
           ...inquery.animal.author,
@@ -214,9 +214,9 @@ export class InqueryService {
       })),
       animal: {
         ...animal,
-        pictures: animal.pictures.map(({ id, src }) => ({
+        pictures: animal.pictures.map(({ id, fileName }) => ({
           id,
-          src,
+          src: getImagePath(fileName),
         })),
       },
     };
@@ -447,8 +447,6 @@ export class InqueryService {
         ...dto,
       },
     });
-
-    console.log({ message });
 
     return message;
   }

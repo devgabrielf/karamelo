@@ -8,7 +8,6 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  IsUrl,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -22,7 +21,6 @@ export class RegisterAnimalDto {
   name: string;
 
   @IsArray()
-  @IsUrl({ require_tld: false }, { each: true })
   @ArrayMinSize(1)
   @ArrayMaxSize(4)
   pictures: string[];

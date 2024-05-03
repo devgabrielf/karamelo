@@ -75,9 +75,9 @@ export class AnimalService {
         ...animal.author,
         avatar: getImagePath(animal.author.avatar),
       },
-      pictures: animal.pictures.map(({ id, src }) => ({
+      pictures: animal.pictures.map(({ id, fileName }) => ({
         id,
-        src,
+        src: getImagePath(fileName),
       })),
       inquery,
     };
@@ -104,9 +104,9 @@ export class AnimalService {
 
     return animals.map((animal) => ({
       ...animal,
-      pictures: animal.pictures.map(({ id, src }) => ({
+      pictures: animal.pictures.map(({ id, fileName }) => ({
         id,
-        src,
+        src: getImagePath(fileName),
       })),
     }));
   }
@@ -158,9 +158,9 @@ export class AnimalService {
       total,
       animals: animals.map((animal) => ({
         ...animal,
-        pictures: animal.pictures.map(({ id, src }) => ({
+        pictures: animal.pictures.map(({ id, fileName }) => ({
           id,
-          src,
+          src: getImagePath(fileName),
         })),
       })),
     };
@@ -190,9 +190,9 @@ export class AnimalService {
 
     return animals.map((animal) => ({
       ...animal,
-      pictures: animal.pictures.map(({ id, src }) => ({
+      pictures: animal.pictures.map(({ id, fileName }) => ({
         id,
-        src,
+        src: getImagePath(fileName),
       })),
     }));
   }
@@ -210,7 +210,7 @@ export class AnimalService {
         pictures: {
           createMany: {
             data: pictures.map((picture) => ({
-              src: picture,
+              fileName: picture,
             })),
           },
         },
@@ -224,13 +224,16 @@ export class AnimalService {
       },
       select: {
         id: true,
-        src: true,
+        fileName: true,
       },
     });
 
     return {
       ...animal,
-      pictures: addedPictures,
+      pictures: addedPictures.map(({ id, fileName }) => ({
+        id,
+        src: getImagePath(fileName),
+      })),
     };
   }
 

@@ -22,8 +22,8 @@ import { UserModule } from './user/user.module';
     PrismaModule,
     UserModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'images'), // caminho absoluto para o diretório de imagens
-      serveRoot: '/images', // rota que servirá os arquivos estáticos
+      rootPath: join(__dirname, '..', 'images'),
+      serveRoot: '/images',
     }),
   ],
 })

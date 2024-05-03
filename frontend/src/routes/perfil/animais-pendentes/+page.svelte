@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { AnimalStatus } from "$enums";
 	import type { PageData } from "./$types";
 
 	import { AnimalCard, NoResults } from "$components";

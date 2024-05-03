@@ -88,7 +88,12 @@
 		</p>
 		<div class="mt-10 grid grid-cols-3 gap-4">
 			{#each user.homeImages as image (image.id)}
-				<ImageCard id={image.id} src={image.src} on:delete={handleImageDelete} isDeletable />
+				<ImageCard
+					id={image.id}
+					src={image.src}
+					on:delete={handleImageDelete}
+					isDeletable
+				/>
 			{/each}
 			{#if user.homeImages.length < 6}
 				<ImageInput on:upload={handleImageUpload} />

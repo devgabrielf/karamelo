@@ -125,7 +125,7 @@
 				>
 				<p class="mx-auto text-sm">
 					Ou <a
-						href="/entrar{$page.url.search}"
+						href="/entrar/{$page.url.search}"
 						class="font-bold text-amber-600 transition-colors hover:text-amber-700"
 						>acesse sua conta</a
 					>

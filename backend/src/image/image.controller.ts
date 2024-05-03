@@ -26,6 +26,7 @@ export class ImageController {
       switchMap((isFileLegit: boolean) => {
         if (isFileLegit) {
           return of({
+            fileName,
             src: getImagePath(fileName),
           });
         }

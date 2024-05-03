@@ -2,8 +2,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { JwtGuard } from './auth/guards/';
+import { join } from 'path';
 
-async function bootstrap() {
+const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
@@ -18,6 +19,6 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtGuard(reflector));
 
   await app.listen(3333);
-}
+};
 
 bootstrap();

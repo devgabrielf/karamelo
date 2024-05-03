@@ -20,8 +20,6 @@
 
 	let isFetching = false;
 
-	let currentMessage = "";
-
 	const handleReject = async () => {
 		if (isFetching) {
 			return;
@@ -105,7 +103,7 @@
 
 <Box>
 	<a
-		href="."
+		href=".."
 		class="flex items-center gap-1 leading-4 text-zinc-500 transition-colors hover:text-zinc-600"
 	>
 		<ChevronsLeft size="16" />voltar

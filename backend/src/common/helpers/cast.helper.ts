@@ -4,7 +4,7 @@ type ToNumberOptions = {
   max?: number;
 };
 
-export function toNumber(value: string, opts: ToNumberOptions = {}) {
+export const toNumber = (value: string, opts: ToNumberOptions = {}) => {
   let newValue: number = Number.parseInt(value || String(opts.default), 10);
 
   if (Number.isNaN(newValue)) {
@@ -22,12 +22,12 @@ export function toNumber(value: string, opts: ToNumberOptions = {}) {
   }
 
   return newValue;
-}
+};
 
-export function toLowerCase(value: string) {
+export const toLowerCase = (value: string) => {
   return value.toLowerCase();
-}
+};
 
-export function toUpperCase(value: string) {
+export const toUpperCase = (value: string) => {
   return value.toUpperCase();
-}
+};

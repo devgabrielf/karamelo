@@ -6,7 +6,7 @@
 	export let animals: AnimalSimple[];
 	export let title: string;
 	export let color: string;
-	export let enableLink: boolean = false;
+	export let enableLink = false;
 </script>
 
 {#if animals.length}

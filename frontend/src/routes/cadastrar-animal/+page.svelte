@@ -78,6 +78,7 @@
 
 	$: {
 		if ($sForm.age === 0) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			$sForm.age = undefined;
 		}
@@ -87,6 +88,12 @@
 	let selectedUf: SelectType;
 	let selectedCity: SelectType;
 	let selectedSex = sexes[0];
+
+	$: {
+		selectedCity = cities.some(city => city?.value === selectedCity?.value)
+			? selectedCity
+			: undefined;
+	}
 
 	onMount(async () => {
 		const ufsJson = await getUFs();
@@ -98,7 +105,7 @@
 		selectedUf = { value: user?.uf || "", label: user?.uf || "" };
 	});
 
-	let pictures: string[] = [];
+	let pictures: { fileName: string; src: string }[] = [];
 	let picturesJSON = "";
 
 	$: {
@@ -130,7 +137,7 @@
 
 		if (response.ok) {
 			const picture = await response.json();
-			pictures = [...pictures, picture.src];
+			pictures = [...pictures, picture];
 		} else {
 			toast("Ocorreu um erro ao enviar a foto.", ToastType.ERROR);
 		}
@@ -139,8 +146,8 @@
 	};
 
 	const handleImageDelete = async (event: CustomEvent) => {
-		const imageSrc = event.detail.imageId as string;
-		pictures = pictures.filter(picture => picture !== imageSrc);
+		const imageId = event.detail.imageId as string;
+		pictures = pictures.filter(picture => picture.fileName !== imageId);
 	};
 </script>
 
@@ -228,7 +235,12 @@
 		</div>
 		<div class="mt-2 grid grid-cols-3 gap-4">
 			{#each pictures as picture (picture)}
-				<ImageCard id={picture} src={picture} on:delete={handleImageDelete} isDeletable />
+				<ImageCard
+					id={picture.fileName}
+					src={picture.src}
+					on:delete={handleImageDelete}
+					isDeletable
+				/>
 			{/each}
 			{#if pictures.length < 4}
 				<ImageInput on:upload={handleImageUpload} />

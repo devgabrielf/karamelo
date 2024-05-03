@@ -46,7 +46,7 @@
 				>
 				<p class="mx-auto text-sm">
 					Não possui uma conta? <a
-						href="/cadastrar{$page.url.search}"
+						href="/cadastrar/{$page.url.search}"
 						class="font-bold text-amber-600 transition-colors hover:text-amber-700">Cadastre-se</a
 					>
 				</p>

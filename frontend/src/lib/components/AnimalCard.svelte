@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { InqueryMessages } from "$components";
 	import { AnimalStatus, InqueryStatus, Sex } from "$enums";
-	import type { AnimalSimple, Inquery, User } from "$types";
+	import type { AnimalSimple, User } from "$types";
 	import { getSexIcon } from "$utils";
 	import { MessageCircle } from "lucide-svelte";
 
 	export let animal: AnimalSimple;
-	export let href: string | null = `/animais/${animal.id}`;
+	export let href: string | null = `/animais/${animal.id}/`;
 	export let status: AnimalStatus | InqueryStatus | undefined = undefined;
 	export let inqueryId: string | undefined = undefined;
 	export let user: User | undefined = undefined;
@@ -36,7 +36,11 @@
 		? 'hover:-translate-y-1'
 		: ''} {status ? `border-t-[6px] ${getStatusBorder()}` : ''}"
 >
-	<img src={animal.pictures[0].src} alt={animal.name} class="aspect-[29/20] object-cover" />
+	<img
+		src={animal.pictures[0].src}
+		alt={animal.name}
+		class="aspect-[29/20] object-cover"
+	/>
 	<div class="mt-[-0.5rem] rounded-t-xl bg-slate-50 p-4">
 		<div class="mb-2 flex items-center justify-between">
 			{#if href}

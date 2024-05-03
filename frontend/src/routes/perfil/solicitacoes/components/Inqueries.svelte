@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { MyInqueries, User } from "$types";
 
-	import { AnimalCard, NoResults } from "$components";
+	import { AnimalCard } from "$components";
 	import { InqueryStatus } from "$enums";
 
 	export let inqueries: MyInqueries;
@@ -21,7 +21,7 @@
 						? InqueryStatus.FINISHED
 						: InqueryStatus.REJECTED
 					: inquery.status}
-				href={inquery.status !== InqueryStatus.FINISHED ? `/animais/${inquery.animal.id}` : null}
+				href={inquery.status !== InqueryStatus.FINISHED ? `/animais/${inquery.animal.id}/` : null}
 				inqueryId={inquery.id}
 				{user}
 			/>

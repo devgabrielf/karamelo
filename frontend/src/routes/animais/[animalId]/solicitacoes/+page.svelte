@@ -16,7 +16,7 @@
 	{#if inqueries.length}
 		<ul class="flex flex-col gap-2">
 			{#each inqueries as inquery (inquery.id)}
-				<InqueryItem {inquery} />
+				<InqueryItem animalId={animal.id} {inquery} />
 			{/each}
 		</ul>
 	{:else}

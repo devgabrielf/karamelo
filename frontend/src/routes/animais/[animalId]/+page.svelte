@@ -225,7 +225,7 @@
 		<Modal bind:showModal={showInqueryModal} on:close={() => (showInqueryModal = false)}>
 			<form on:submit|preventDefault={handleInquery} class="flex w-96 flex-col gap-8">
 				<h2 class="text-xl">
-					Para manifestar interesse na adoção <b>{animal.name}</b>, deixe sua mensagem:
+					Para manifestar interesse na adoção de <b>{animal.name}</b>, deixe sua mensagem:
 				</h2>
 				<TextareaField name="message" bind:value={inqueryMessage} error={messageError} />
 				<div class="flex gap-4">
